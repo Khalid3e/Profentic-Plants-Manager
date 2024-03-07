@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PlantController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
@@ -18,6 +19,7 @@ use Illuminate\Http\Request;
 |
 */
 
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -28,6 +30,8 @@ Route::get('/add-product', function () {
 })->middleware(['auth'])->name('add.product');
 
 Route::post('/insert-product',[ProductController::class,'store'])->middleware(['auth']);
+
+Route::get('/delete-product/{id}',[ProductController::class,'delete'])->middleware(['auth']);
 
 Route::get('/all-product',[ProductController::class,'allProduct'])->middleware(['auth'])->name('all.product');
 
@@ -81,8 +85,30 @@ Route::post('/insert-customer',[CustomerController::class,'store'])->middleware(
 Route::get('/all-customers',[CustomerController::class,'customersData'])->middleware(['auth'])->name('all.customers');
 
 
-Route::get('/dashboard', function () {
+
+//plant
+Route::get('/add-plant', function () {
+    return view('Admin.add_plant');
+})->middleware(['auth'])->name('add.plant');
+
+Route::post('/insert-plant',[PlantController::class,'store'])->middleware(['auth']);
+
+Route::get('/delete-plant/{id}',[PlantController::class,'delete'])->middleware(['auth']);
+
+Route::get('/all-plant',[PlantController::class,'allPlant'])->middleware(['auth'])->name('all.plant');
+
+Route::get('/available-plants',[PlantController::class,'availablePlants'])->middleware(['auth'])->name('available.plants');
+
+Route::get('/purchase-plants/{id}', [PlantController::class,'purchaseData'])->middleware(['auth']);
+
+Route::post('/insert-purchase-plants',[PlantController::class,'storePurchase'])->middleware(['auth']);
+
+
+//dashboard
+Route::get('/dashboard', [PlantController::class,'countPlants'])->middleware(['auth'])->name('dashboard');
+
+Route::get('/countAllPlants', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+});
 
 require __DIR__.'/auth.php';

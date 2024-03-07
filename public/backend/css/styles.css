@@ -2130,6 +2130,7 @@ textarea.form-control {
   position: relative;
   display: block;
   padding-left: 1.25rem;
+  margin: 1.25rem;
 }
 
 .form-check-input {
@@ -4357,7 +4358,7 @@ input[type=button].btn-block {
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.25rem;
+  padding: 0px;
 }
 
 .card-title {

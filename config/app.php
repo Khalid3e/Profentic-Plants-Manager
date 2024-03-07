@@ -93,6 +93,21 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Available locales
+    |--------------------------------------------------------------------------
+    |
+    | List all locales that your application works with
+    |
+    */
+
+    'available_locales' => [
+        'Arabic' => 'ar',
+        'English' => 'en',
+        'French' => 'fr',
+    ],
+
     'fallback_locale' => 'en',
 
     /*
