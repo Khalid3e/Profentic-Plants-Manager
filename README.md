@@ -28,3 +28,4 @@
     php artisan serve --host 0.0.0.0
 
 
+Based on https://github.com/ekramasif/Inventory_Management_System.git
