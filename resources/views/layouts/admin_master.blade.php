@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8" />
@@ -21,6 +21,7 @@
         #layoutSidenav_content .card {
             margin: 1rem;
         }
+
         #layoutSidenav_content svg {
             margin-right: 0.5rem;
         }
@@ -28,6 +29,7 @@
         [data-href] {
             cursor: pointer;
         }
+
         .table th,
         .table td {
             padding: 1rem;
@@ -1073,7 +1075,7 @@
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark p-2">
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button>
-        <a class="navbar-brand">ProSM</a>
+        <a class="navbar-brand">ProSM - {{ __('messages.home') }}</a>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
@@ -1084,6 +1086,36 @@
                 </div>
             </div>
         </form>
+        <!-- Language Select-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                        class="fas fa-solid fa-language"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <form action="{{ route('language.switch') }}" method="POST" class="inline-block">
+                        @csrf
+                        <button type="submit" value="en" class="dropdown-item"
+                            formaction="{{ route('language.switch') }}">{{ app()->getLocale() === 'en' ? 'selected' : '' }}>English</button>
+                        <button type="submit" value="ar" class="dropdown-item"
+                            formaction="{{ route('language.switch') }}">{{ app()->getLocale() === 'ar' ? 'selected' : '' }}>Arabic</button>
+                        <button type="submit" value="fr" class="dropdown-item"
+                            formaction="{{ route('language.switch') }}">{{ app()->getLocale() === 'fr' ? 'selected' : '' }}>French</button>
+                    </form>
+                </div>
+
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                        class="fas fa-solid fa-language"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <button class="dropdown-item" href="#">English</button>
+                    <button class="dropdown-item" href="#">Arabic</button>
+                    <button class="dropdown-item" href="#">French</button>
+                </div>
+            </li>
+        </ul>
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
@@ -1119,16 +1151,17 @@
                             data-target="#collapsePlants" aria-expanded="false" aria-controls="collapsePlants">
 
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                             Plants
+                            Plants
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                       <div class="collapse" id="collapsePlants" aria-labelledby="headingOne"
+                        <div class="collapse" id="collapsePlants" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 {{--  <a class="nav-link" href="{{ route('add.plant') }}">New Product</a>
                                 <a class="nav-link" href="{{ route('available.plants') }}">Available Products</a>
                                  --}}
-                                 <a class="nav-link" href="{{ route('all.plant') }}">Plant List</a>                            </nav>
+                                <a class="nav-link" href="{{ route('all.plant') }}">Plant List</a>
+                            </nav>
                         </div>
                         {{-- <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">

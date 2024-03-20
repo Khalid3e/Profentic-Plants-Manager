@@ -2,8 +2,8 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @section('content')
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item active">Plants</li>
+        <li class="breadcrumb-item">{{ __('messages.home')}}</li>
+        <li class="breadcrumb-item active">Plants {{Session::get('language')}} - {{App::getLocale()}}</li>
     </ol>
     <script src="extensions/export/bootstrap-table-export.js"></script>
     <div class="card mb-4">

@@ -6,8 +6,9 @@ use App\Http\Controllers\PlantController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,8 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', function () {
+    $language = session('language');
+    App::setLocale($language);
     return view('auth.login');
 });
 
@@ -113,5 +116,8 @@ Route::get('/dashboard', [PlantController::class,'countPlants'])->middleware(['a
 Route::get('/countAllPlants', function () {
     return view('dashboard');
 });
+
+//global
+Route::post('/language-switch', [LanguageController::class, 'languageSwitch'])->name('language.switch');
 
 require __DIR__.'/auth.php';
