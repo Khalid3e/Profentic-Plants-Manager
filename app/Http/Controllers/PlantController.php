@@ -51,13 +51,21 @@ class PlantController extends Controller
     }
 
 
-    public function delete(Request $request)
+    public function bulkDelete(Request $request)
     {
         $code = $request->ids;
         Plant::whereIn('code',explode(",",$code))->delete();
         return response()->json(['status'=>true,'message'=>"Plant successfully removed."]);
     }
 
+    public function delete($id)
+    {
+        Plant::whereIn('code',explode(",",$id))->delete();
+        
+            return redirect()->back();
+        
+
+    }
     
 
     public function allPlant()
@@ -118,7 +126,6 @@ class PlantController extends Controller
                 'quantity' => $data[5],
                 'transplanting_date' => $data[6],
                 'omv' => $data[7]
-                // Add more fields as needed
             ]);}
             $i++;
         }

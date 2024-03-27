@@ -96,7 +96,9 @@ Route::get('/add-plant', function () {
 
 Route::post('/insert-plant',[PlantController::class,'store'])->middleware(['auth']);
 
-Route::delete('/delete-plant',[PlantController::class,'delete'])->middleware(['auth'])->name('plant.delete');
+Route::delete('/bulk-delete-plants',[PlantController::class,'bulkDelete'])->middleware(['auth'])->name('plant.delete');
+Route::get('/delete-plant/{id}',[PlantController::class,'delete'])->middleware(['auth']);
+
 Route::get('/export',[PlantController::class,'export'])->middleware(['auth'])->name('export');
 Route::post('/import',[PlantController::class,'import'])->middleware(['auth'])->name('import');
 
@@ -118,6 +120,7 @@ Route::get('/countAllPlants', function () {
 });
 
 //global
-Route::post('/language-switch', [LanguageController::class, 'languageSwitch'])->name('language.switch');
+Route::get('/lang/{locale}', [LanguageController::class, 'languageSwitch'])->name('language.switch');
+Route::get('/genenrateQRCode', [QRCodeController::class, 'genenrateQR'])->name('home.index');
 
 require __DIR__.'/auth.php';

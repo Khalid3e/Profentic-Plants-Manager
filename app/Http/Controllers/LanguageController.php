@@ -8,11 +8,17 @@ class LanguageController extends Controller
 {
     public function languageSwitch(Request $request)
     {
-        $language = $request->input('languageSelect'); 
-        session(['language' => $language]);
+
+        //$language = $request->input('languageSelect'); 
+        $language = $request->locale ?? 'en';
+        if (isset($language) && in_array($language, config('app.available_locales'))) {
+            session(['language' => $language]);
+            App::setLocale($language);
+        }else{
+            $language = 'en';
+        }
         //Log::info("Locale set to: " . $language . " (Selected language: " . $language . ")");
         //app()->setLocale($language);
-        App::setLocale($language);
         return redirect()->back()->with(['language_switched' => $language]);
     }
 }

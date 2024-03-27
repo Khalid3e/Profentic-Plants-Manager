@@ -2,21 +2,38 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @section('content')
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item">{{ __('messages.home')}}</li>
-        <li class="breadcrumb-item active">Plants {{Session::get('language')}} - {{App::getLocale()}}</li>
+        <li class="breadcrumb-item">{{ __('messages.home') }}</li>
+        <li class="breadcrumb-item active">Plants {{ Session::get('language') }} - {{ App::getLocale() }}</li>
     </ol>
     <script src="extensions/export/bootstrap-table-export.js"></script>
+
     <div class="card mb-4">
         <div class="card-header">
 
             <div>
-                <i class="fas fa-table mr-1"></i>
+                <i class="fas fa-table"></i>
                 Plant List
             </div>
             <hr>
-            <div class="row row p-2 ">
+            <div class=" row row p-2 d-flex">
                 <a class="btn btn-sm btn-success" href="{{ route('add.plant') }}"><i class="fa fa-plus"></i>Add</a>
-                <a class="btn btn-sm btn-danger" href="#" id="deleteSelectedPlants"><i class="fa fa-times"></i>Delete
+
+                <div class="flex-grow-1  mr-2 ">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-search"></i>Search :
+                            </span>
+
+                        </div>
+                        <input class="form-control" type="text" placeholder="..." aria-label="Search"
+                            aria-describedby="basic-addon2" id="search_plants" />
+
+                    </div>
+                </div>
+
+                <a class="btn btn-sm btn-danger disabled" href="#" id="deleteSelectedPlants"><i
+                        class="fa fa-times"></i>Delete
                     Selected</a>
                 <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#import-modal"><i
                         class="fa fa-file-import"></i>Import
@@ -27,18 +44,7 @@
 
 
             </div>
-            <div class="row row p-2 ">
 
-                <div class="input-group input-group-sm">
-                    <div class="input-group-prepend ">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                    </div>
-
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-                        aria-describedby="basic-addon2" id="search_plants" />
-
-                </div>
-            </div>
 
 
 
@@ -73,14 +79,32 @@
                                     $('*[data-href]').on('click', function() {
                                         window.location = $(this).data("href");
                                     });
+
+                                    $("{{'#deleteSinglePlant'. $row->id}}").on('click', function(){
+                                        if (confirm("Are you sure?")) {
+                                        document.location.href="{{ 'delete-plant/' . $row->code }}";
+                                    }
+                                    });
+                                    
                                 });
+
+                                function myFunction(e) {
+                                    var checkBox = e;
+                                    var parentRow = e.id.replace("check", 'primaryrow');
+                                    if (checkBox.checked == true) {
+                                        $("#" + parentRow).addClass("table-active");
+                                    } else {
+                                        $("#" + parentRow).removeClass("table-active");
+                                    }
+                                }
                             </script>
-                            <tr style="padding: 5px;" id="primaryrow{{ $row->id }}">
-                                <td scope="row" rowspan="1">
-                                    <input type="checkbox" class="checkbox" name="ids"
-                                        data-id="{{ $row->code }}" >
+                            <tr style="padding: 5px;" id="primaryrow{{ $row->id }}" class="checkablerow">
+                                <td scope="row">
+                                    <input id="check{{ $row->id }}" onchange="myFunction(this)" type="checkbox"
+                                        class="checkbox" name="ids" data-id="{{ $row->code }}" checked="false">
                                 </td>
-                                <th scope="row" rowspan="1">
+                                <th scope="row" onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                    style="cursor: pointer;">
                                     <div class="media align-items-center">
 
                                         <div class="media-body">
@@ -90,9 +114,11 @@
 
                                 </th>
 
-                                <td>{{ $row->variety }}</td>
+                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                    style="cursor: pointer;">{{ $row->variety }}</td>
 
-                                <td>
+                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                    style="cursor: pointer;">
                                     @if ($row->is_certified)
                                         <span class="badge badge-dot mr-4">
                                             <i class="bg-success"></i> Certified
@@ -104,34 +130,25 @@
                                     @endif
 
                                 </td>
-                                <td>{{ $row->quantity }}</td>
-                                <td>{{ \Carbon\Carbon::parse($row->transplanting_date)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days') }}
+                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                    style="cursor: pointer;">{{ $row->quantity }}</td>
+                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                    style="cursor: pointer;">
+                                    {{ \Carbon\Carbon::parse($row->transplanting_date)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days') }}
                                 </td>
 
                                 <td class="text-right">
-                                    <div class="action-list">
-                                        <a href="{{ 'plant-details/' . $row->id }}" class="btn btn-sm btn-info"><i
-                                                class="fa fa-pencil-alt"></i>Edit</a>
-                                        <a href="{{ 'delete-plant/' . $row->id }}" class="btn btn-sm btn-danger"><i
-                                                class="fa fa-times"></i>Delete</a>
-                                        <a style="color: white;" class="btn btn-sm btn-success" data-toggle="collapse"
-                                            data-target="{{ '#infodiv' . $row->id }}" id="{{ 'view-' . $row->id }}"><i
-                                                class="fa fa-eye"></i>Details</a>
-
+                                    <div class="btn-group">
+                                        <a href="{{ 'plant-details/' . $row->id }}" class="btn btn-info btn-sm m-0 p-2"
+                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                class="fa fa-pencil-alt m-0 p-0"></i></a>
+                                        <a  class="btn btn-danger btn-sm m-0 p-2"
+                                            data-toggle="tooltip" data-placement="top" title="Delete" id="{{'deleteSinglePlant'. $row->id }}"><i
+                                                class="fa fa-times m-0 p-0" ></i></a>
                                     </div>
 
                                 </td>
                             </tr>
-                            {{-- <tr id="secondaryrow{{$row->id}}">
-                                        <td colspan="5"   style="padding: 0 !important;">
-                                            <div id="{{ 'infodiv' . $row->id }}" class="collapse in">
-                                                Lot: {{ $row->lot}}<br>
-                                                Quantity: {{ $row->quantity }}<br>
-                                                OMV: {{ $row->omv}}<br>
-                                                Transplanting Date: {{ $row->transplanting_date}}
-                                            </div>
-                                        </td>
-                                    </tr> --}}
                         @endforeach
                     </tbody>
                 </table>
@@ -164,19 +181,32 @@
         </div>
     </div>
     <script>
+        function clickedOption(el) {
+            document.getElementById("filter-by").innerHTML = el.text;
+        }
         $(document).ready(function() {
             $("#search_plants").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
+                //var selectedFilter = document.getElementById("filter-by").text;
                 $("#plantstablebody tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
 
             });
             $('#select_all_ids').on('click', function(e) {
+                var parentRow = $(".checkbox").prop("id").replace("check", 'primaryrow');
                 if ($(this).is(':checked', true)) {
                     $(".checkbox").prop('checked', true);
+                    $(".checkablerow").addClass("table-active");
+                    $('#deleteSelectedPlants').removeClass('disabled');
+                    document.getElementById('deleteSelectedPlants').disabled = false;
+
                 } else {
                     $(".checkbox").prop('checked', false);
+                    $(".checkablerow").removeClass("table-active");
+                    $('#deleteSelectedPlants').addClass('disabled');
+                    document.getElementById('deleteSelectedPlants').disabled = true;
+
                 }
             });
             $('.checkbox').on('click', function() {
@@ -184,6 +214,13 @@
                     $('#select_all_ids').prop('checked', true);
                 } else {
                     $('#select_all_ids').prop('checked', false);
+                }
+                if ($('.checkbox:checked').length > 0) {
+                    $('#deleteSelectedPlants').removeClass('disabled');
+                    document.getElementById('deleteSelectedPlants').disabled = false;
+                } else {
+                    $('#deleteSelectedPlants').addClass('disabled');
+                    document.getElementById('deleteSelectedPlants').disabled = true;
                 }
             });
             $('#deleteSelectedPlants').on('click', function(e) {
@@ -214,6 +251,9 @@
                                 } else {
                                     alert('Error occured.');
                                 }
+                                $('#deleteSelectedPlants').removeClass('disabled');
+                                document.getElementById('deleteSelectedPlants').disabled = false;
+
                             },
                             error: function(data) {
                                 alert(data.responseText);
@@ -226,34 +266,5 @@
 
 
         });
-        /* $(function(e) {
-            $("#select_all_ids").click(function () {
-                $('.checkbox_ids').prop('checked', $(this).prop('checked'));
-            });
-
-            $('#deleteSelectedPlants').click(function(e){
-                e.preventDefault();
-                var all_ids = [];
-                $('input:checkbox[name=ids]:checked').each(function(){
-                    
-                    all_ids.push($(this).attr('data-id'));
-                });
-                $.ajax({
-                    url:"{{ route('plant.delete') }}",
-                    type:"DELETE",
-                    data:{
-                        ids:all_ids,
-                        _token:'{{ csrf_token() }}'
-                    },
-                    success:function(response){
-                        $.each(all_ids,function(key,val){
-                            console.log(val);
-                            $('#primaryrow'+val).remove();
-                        })
-                    },
-                    
-                });
-            });
-        }); */
     </script>
 @endsection

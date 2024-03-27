@@ -1088,31 +1088,15 @@
         </form>
         <!-- Language Select-->
         <ul class="navbar-nav ml-auto ml-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                        class="fas fa-solid fa-language"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <form action="{{ route('language.switch') }}" method="POST" class="inline-block">
-                        @csrf
-                        <button type="submit" value="en" class="dropdown-item"
-                            formaction="{{ route('language.switch') }}">{{ app()->getLocale() === 'en' ? 'selected' : '' }}>English</button>
-                        <button type="submit" value="ar" class="dropdown-item"
-                            formaction="{{ route('language.switch') }}">{{ app()->getLocale() === 'ar' ? 'selected' : '' }}>Arabic</button>
-                        <button type="submit" value="fr" class="dropdown-item"
-                            formaction="{{ route('language.switch') }}">{{ app()->getLocale() === 'fr' ? 'selected' : '' }}>French</button>
-                    </form>
-                </div>
-
-            </li>
+            
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                         class="fas fa-solid fa-language"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <button class="dropdown-item" href="#">English</button>
-                    <button class="dropdown-item" href="#">Arabic</button>
-                    <button class="dropdown-item" href="#">French</button>
+                    <a class="dropdown-item" href="lang/en">English</a>
+                    <a class="dropdown-item" href="lang/ar">Arabic</a>
+                    <a class="dropdown-item" href="lang/fr">French</a>
                 </div>
             </li>
         </ul>
