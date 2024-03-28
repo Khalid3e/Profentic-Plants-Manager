@@ -117,16 +117,32 @@ class PlantController extends Controller
             
 
             if( $i > 0){
-            Plant::create([
-                'code' => $data[0],
-                'place' => $data[1],
-                'variety' => $data[2],
-                'lot' => $data[3],
-                'is_certified' => $data[4],
-                'quantity' => $data[5],
-                'transplanting_date' => $data[6],
-                'omv' => $data[7]
-            ]);}
+                $plant = Plant::where('code', '=', $data[0])->first();
+                
+                if (Plant::where('code', '=', $data[0])->exists()) {
+                    $plant->place = $data[1];
+                    $plant->variety = $data[2];
+                    $plant->lot = $data[3];
+                    $plant->is_certified = $data[4];
+                    $plant->quantity = $data[5];
+                    $plant->transplanting_date = $data[6];
+                    $plant->omv = $data[7];
+                    $plant->save();
+                }else{
+                    Plant::create([
+                        'code' => $data[0],
+                        'place' => $data[1],
+                        'variety' => $data[2],
+                        'lot' => $data[3],
+                        'is_certified' => $data[4],
+                        'quantity' => $data[5],
+                        'transplanting_date' => $data[6],
+                        'omv' => $data[7]
+                    ]);
+                }
+
+                
+            }
             $i++;
         }
 

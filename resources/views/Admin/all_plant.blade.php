@@ -101,7 +101,7 @@
                             <tr style="padding: 5px;" id="primaryrow{{ $row->id }}" class="checkablerow">
                                 <td scope="row">
                                     <input id="check{{ $row->id }}" onchange="myFunction(this)" type="checkbox"
-                                        class="checkbox" name="ids" data-id="{{ $row->code }}" checked="false">
+                                        class="checkbox" name="ids" data-id="{{ $row->code }}" >
                                 </td>
                                 <th scope="row" onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
                                     style="cursor: pointer;">
@@ -185,6 +185,7 @@
             document.getElementById("filter-by").innerHTML = el.text;
         }
         $(document).ready(function() {
+            $(".checkbox").prop('checked', false);
             $("#search_plants").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 //var selectedFilter = document.getElementById("filter-by").text;
