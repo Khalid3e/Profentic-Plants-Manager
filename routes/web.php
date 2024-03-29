@@ -6,8 +6,9 @@ use App\Http\Controllers\PlantController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,8 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', function () {
+    $language = session('language');
+    App::setLocale($language);
     return view('auth.login');
 });
 
@@ -93,15 +96,20 @@ Route::get('/add-plant', function () {
 
 Route::post('/insert-plant',[PlantController::class,'store'])->middleware(['auth']);
 
+Route::delete('/bulk-delete-plants',[PlantController::class,'bulkDelete'])->middleware(['auth'])->name('plant.delete');
 Route::get('/delete-plant/{id}',[PlantController::class,'delete'])->middleware(['auth']);
+
+Route::get('/export',[PlantController::class,'export'])->middleware(['auth'])->name('export');
+Route::post('/import',[PlantController::class,'import'])->middleware(['auth'])->name('import');
 
 Route::get('/all-plant',[PlantController::class,'allPlant'])->middleware(['auth'])->name('all.plant');
 
 Route::get('/available-plants',[PlantController::class,'availablePlants'])->middleware(['auth'])->name('available.plants');
 
-Route::get('/purchase-plants/{id}', [PlantController::class,'purchaseData'])->middleware(['auth']);
+Route::get('/plant-details/{id}', [PlantController::class,'plantDetails'])->middleware(['auth'])->name('plant.details');
 
 Route::post('/insert-purchase-plants',[PlantController::class,'storePurchase'])->middleware(['auth']);
+
 
 
 //dashboard
@@ -110,5 +118,9 @@ Route::get('/dashboard', [PlantController::class,'countPlants'])->middleware(['a
 Route::get('/countAllPlants', function () {
     return view('dashboard');
 });
+
+//global
+Route::get('/lang/{locale}', [LanguageController::class, 'languageSwitch'])->name('language.switch');
+Route::get('/genenrateQRCode', [QRCodeController::class, 'genenrateQR'])->name('home.index');
 
 require __DIR__.'/auth.php';
