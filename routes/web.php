@@ -5,9 +5,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
+use App\Models\User;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\LanguageController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
@@ -96,17 +97,17 @@ Route::get('/add-plant', function () {
 
 Route::post('/insert-plant',[PlantController::class,'store'])->middleware(['auth']);
 
-Route::delete('/bulk-delete-plants',[PlantController::class,'bulkDelete'])->middleware(['auth'])->name('plant.delete');
+Route::delete('/delete-plants',[PlantController::class,'bulkDelete'])->middleware(['auth'])->name('plant.delete');
 Route::get('/delete-plant/{id}',[PlantController::class,'delete'])->middleware(['auth']);
 
-Route::get('/export',[PlantController::class,'export'])->middleware(['auth'])->name('export');
-Route::post('/import',[PlantController::class,'import'])->middleware(['auth'])->name('import');
+Route::get('/export-plants',[PlantController::class,'export'])->middleware(['auth'])->name('export');
+Route::post('/import-plants',[PlantController::class,'import'])->middleware(['auth'])->name('import');
 
-Route::get('/all-plant',[PlantController::class,'allPlant'])->middleware(['auth'])->name('all.plant');
+Route::get('/all-plants',[PlantController::class,'allPlants'])->middleware(['auth'])->name('all.plant');
 
 Route::get('/available-plants',[PlantController::class,'availablePlants'])->middleware(['auth'])->name('available.plants');
 
-Route::get('/plant-details/{id}', [PlantController::class,'plantDetails'])->middleware(['auth'])->name('plant.details');
+Route::get('/details-plant/{id}', [PlantController::class,'plantDetails'])->middleware(['auth'])->name('plant.details');
 
 Route::post('/insert-purchase-plants',[PlantController::class,'storePurchase'])->middleware(['auth']);
 

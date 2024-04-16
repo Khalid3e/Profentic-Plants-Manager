@@ -1,6 +1,37 @@
 <?php
 
 return [
+    'plantlist'=> 'Liste des plantes',
+    'actions' => [
+        'search'=> 'Rechercher',
+        'add' => 'Ajouter',
+        'delete' => 'Supprimer',
+        'deleteselected' => 'Supprimer la sélection',
+        'import' => 'Importer',
+        'export' => 'Exporter',
+        'submit'=> 'Soumettre',
+        'edit'=> 'Modifier',
+    ],
+    'attr' => [
+        'code'=> 'Code',
+        'variety' => 'Variété',
+        'certified' => 'Certifié',
+        'quantity' => 'Quantité',
+        'age' => 'Age',
+        'place' => 'Emplacement',
+        'lot'=> 'Lot',
+        'certification'=> 'Certification',
+        'transplantingdate'=> 'Date de transplantation',
+        'omv'=> 'OMV',
+    ],
+    'dashboardcomponents'=> [
+        'allplants'=> 'Toutes les plantes',
+        'certifiedplants'=> 'Plantes certifiées',
+    ],
+    'detailsof'=> 'Détails de ',
+    'confirm'=> 'Etes-vous sûr ?',
+    'addplant'=> 'Ajouter une nouvelle plante',
+
     'welcome' => 'Bienvenue sur notre application !',
      'home' => 'Accueil',
      'failed'   => 'Ces identifiants ne correspondent pas à nos enregistrements',

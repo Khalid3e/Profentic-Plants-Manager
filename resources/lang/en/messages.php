@@ -1,6 +1,36 @@
 <?php
 
 return [
+    'plantlist'=> 'Plant List',
+    'actions' => [
+        'search'=> 'Search',
+        'add' => 'Add',
+        'delete' => 'Delete',
+        'deleteselected' => 'Delete Selected',
+        'import' => 'Import',
+        'export' => 'Export',
+        'submit'=> 'Submit',
+        'edit'=> 'Edit',
+    ],
+    'attr' => [
+        'code'=> 'Code',
+        'variety' => 'Variety',
+        'certified' => 'Certified',
+        'quantity' => 'Quantity',
+        'age' => 'Age',
+        'place' => 'Place',
+        'lot'=> 'Lot',
+        'certification'=> 'Certification',
+        'transplantingdate'=> 'Transplanting Date',
+        'omv'=> 'OMV',
+    ],
+    'dashboardcomponents'=> [
+        'allplants'=> 'All Plants',
+        'certifiedplants'=> 'Certified Plants',
+    ],
+    'detailsof'=> 'Details of ',
+    'confirm'=> 'Are you sure?',
+    'addplant'=> 'Add New Plant',
     'welcome' => 'Welcome to our application!',
     'home' => 'Home',
     'previous' => '&laquo; Previous',

@@ -68,7 +68,7 @@ class PlantController extends Controller
     }
     
 
-    public function allPlant()
+    public function allPlants()
     {
         $plants = Plant::all();
         return view('Admin.all_plant', compact('plants'));

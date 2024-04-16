@@ -3,6 +3,37 @@
 
 
 return [
+    'plantlist'=> 'قائمة النباتات',
+    'actions' => [
+        'search'=> 'بحث',
+        'add' => 'إضافة',
+        'delete' => 'حذف',
+        'deleteselected' => 'حذف',
+        'import' => 'استيراد',
+        'export' => 'تصدير',
+        'submit'=> 'إرسال',
+        'edit'=> 'تعديل',
+    ],
+    'attr' => [
+        'code'=> 'الرقم',
+        'variety' => 'النوع',
+        'certified' => 'معتمد',
+        'quantity' => 'العدد',
+        'age' => 'العمر',
+        'place' => 'المكان',
+        'lot'=> 'Lot',
+        'certification'=> 'الشهادة',
+        'transplantingdate'=> 'تاريخ الزرع',
+        'omv'=> 'OMV',
+    ],
+    'dashboardcomponents'=> [
+        'allplants'=> 'جميع النباتات',
+        'certifiedplants'=> 'النباتات المعتمدة',
+    ],
+    'detailsof'=> 'تفاصيل ',
+    'confirm'=> 'هل أنت متأكد؟',
+    'addplant'=> 'أضف نباتًا جديدًا',
+
     'welcome' => 'أهلا بك في التطبيق !',
     'home' => 'الرئيسية',
     'failed'   => 'بيانات الاعتماد هذه غير متطابقة مع البيانات المسجلة لدينا.',

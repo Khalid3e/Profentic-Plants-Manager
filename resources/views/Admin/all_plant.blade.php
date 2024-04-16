@@ -3,7 +3,7 @@
 @section('content')
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">{{ __('messages.home') }}</li>
-        <li class="breadcrumb-item active">Plants {{ Session::get('language') }} - {{ App::getLocale() }}</li>
+        <li class="breadcrumb-item active">Plants</li>
     </ol>
     <script src="extensions/export/bootstrap-table-export.js"></script>
 
@@ -12,7 +12,7 @@
 
             <div>
                 <i class="fas fa-table"></i>
-                Plant List
+                {{ __('messages.plantlist') }}
             </div>
             <hr>
             <div class=" row row p-2 d-flex">
@@ -22,7 +22,7 @@
                     <div class="input-group input-group-sm">
                         <div class="input-group-prepend ">
                             <span class="input-group-text" id="basic-addon1">
-                                <i class="fas fa-search"></i>Search :
+                                <i class="fas fa-search"></i>{{ __('messages.search') }} :
                             </span>
 
                         </div>
@@ -33,14 +33,12 @@
                 </div>
 
                 <a class="btn btn-sm btn-danger disabled" href="#" id="deleteSelectedPlants"><i
-                        class="fa fa-times"></i>Delete
-                    Selected</a>
+                        class="fa fa-times"></i>{{ __('messages.actions.deleteselected') }}</a>
                 <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#import-modal"><i
-                        class="fa fa-file-import"></i>Import
+                        class="fa fa-file-import"></i>{{ __('messages.actions.import') }}
 
 
-                    <a class="btn btn-sm btn-primary" href="{{ route('export') }}"><i class="fa fa-file-export"></i>Export
-                        All</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('export') }}"><i class="fa fa-file-export"></i>{{ __('messages.actions.export') }}</a>
 
 
             </div>
@@ -55,12 +53,12 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col"><input type="checkbox" id="select_all_ids"></th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Variety</th>
-                            <th scope="col">Certified</th>
+                            <th scope="col">{{ __('messages.attr.code') }}</th>
+                            <th scope="col">{{ __('messages.attr.variety') }}</th>
+                            <th scope="col">{{ __('messages.attr.certified') }}</th>
 
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Age</th>
+                            <th scope="col">{{ __('messages.attr.quantity') }}</th>
+                            <th scope="col">{{ __('messages.attr.age') }}</th>
                             <th scope="col"></th>
 
                         </tr>
@@ -103,7 +101,7 @@
                                     <input id="check{{ $row->id }}" onchange="myFunction(this)" type="checkbox"
                                         class="checkbox" name="ids" data-id="{{ $row->code }}" >
                                 </td>
-                                <th scope="row" onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                <th scope="row" onClick="document.location.href='{{ 'details-plant/' . $row->id }}';"
                                     style="cursor: pointer;">
                                     <div class="media align-items-center">
 
@@ -114,10 +112,10 @@
 
                                 </th>
 
-                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                <td onClick="document.location.href='{{ 'details-plant/' . $row->id }}';"
                                     style="cursor: pointer;">{{ $row->variety }}</td>
 
-                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                <td onClick="document.location.href='{{ 'details-plant/' . $row->id }}';"
                                     style="cursor: pointer;">
                                     @if ($row->is_certified)
                                         <span class="badge badge-dot mr-4">
@@ -130,16 +128,16 @@
                                     @endif
 
                                 </td>
-                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                <td onClick="document.location.href='{{ 'details-plant/' . $row->id }}';"
                                     style="cursor: pointer;">{{ $row->quantity }}</td>
-                                <td onClick="document.location.href='{{ 'plant-details/' . $row->id }}';"
+                                <td onClick="document.location.href='{{ 'details-plant/' . $row->id }}';"
                                     style="cursor: pointer;">
                                     {{ \Carbon\Carbon::parse($row->transplanting_date)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days') }}
                                 </td>
 
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="{{ 'plant-details/' . $row->id }}" class="btn btn-info btn-sm m-0 p-2"
+                                        <a href="{{ 'details-plant/' . $row->id }}" class="btn btn-info btn-sm m-0 p-2"
                                             data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                 class="fa fa-pencil-alt m-0 p-0"></i></a>
                                         <a  class="btn btn-danger btn-sm m-0 p-2"
