@@ -5,9 +5,9 @@
 
 ## Quick Installation
 
-    git clone https://github.com/ekramasif/Inventory_Management_System.git
+    git clone https://github.com/Khalid3e/Profentic-Plants-Manager.git
 
-    cd Inventory_Management_System
+    cd Profentic-Plants-Manager
     
 ### Composer
 
@@ -19,7 +19,7 @@
     cp .env.example .env
  
     
- ### For Migration table in database [Create database name as ```IMS```]
+ ### For Migration table in database [Create database name as ```pm```]
  
     php artisan migrate
     
@@ -30,5 +30,5 @@
 ## Our valuable team👩‍💻👨‍💻 :
 
 <p align="center">
-  <img src="https://contributors-img.web.app/image?repo=ekramasif/Inventory_Management_System" />
+  <img src="https://contributors-img.web.app/image?repo=Khalid3e/Profentic-Plants-Manager" />
 </p>
